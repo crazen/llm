@@ -1,0 +1,33 @@
+# ── API & Server ──────────────────────────────────────────────────
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-multipart>=0.0.9
+slowapi>=0.1.9
+
+# ── LangChain ─────────────────────────────────────────────────────
+langchain>=0.3.0
+langchain-core>=1.0.0
+langchain-community>=0.3.0
+langchain-text-splitters>=0.3.0
+langchain-nvidia-ai-endpoints>=0.3.0
+
+# ── Vector Store ──────────────────────────────────────────────────
+faiss-cpu>=1.7.4
+
+# ── Document Loaders ──────────────────────────────────────────────
+pypdf>=4.0.0
+
+# ── Reranking ─────────────────────────────────────────────────────
+sentence-transformers>=2.7.0
+
+# ── Knowledge Graph ───────────────────────────────────────────────
+networkx>=3.2.0
+spacy>=3.7.0
+# Após instalar, rode: python -m spacy download pt_core_news_sm
+
+# ── Supabase ──────────────────────────────────────────────────────
+supabase>=2.4.0
+
+# ── Utils ─────────────────────────────────────────────────────────
+python-dotenv>=1.0.0
+pydantic>=2.6.0

@@ -1,0 +1,282 @@
+[
+  {
+    "name": "Baseline (só FAISS)",
+    "config": {
+      "use_hyde": false,
+      "use_multi_query": false,
+      "use_reranking": false,
+      "use_graph": false
+    },
+    "avg_timing": {
+      "hyde_ms": 0.0,
+      "multi_query_ms": 0.0,
+      "reranking_ms": 0.0,
+      "graph_ms": 0.0,
+      "llm_ms": 8364.870837500803,
+      "total_ms": 9140.411224999752
+    },
+    "ragas_scores": {
+      "faithfulness": 0.6909,
+      "answer_relevancy": 0.7991,
+      "context_recall": 0.6537,
+      "context_precision": 0.557
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.6752,
+      "total_time_s": 9.14,
+      "llm_calls_avg": 1,
+      "cost_score": 9.14,
+      "cost_benefit": 0.0739
+    },
+    "complexity": {
+      "retrieval": "O(d×k)",
+      "extra_llm_calls": 0,
+      "local_compute": "O(1)"
+    }
+  },
+  {
+    "name": "HyDE",
+    "config": {
+      "use_hyde": true,
+      "use_multi_query": false,
+      "use_reranking": false,
+      "use_graph": false
+    },
+    "avg_timing": {
+      "hyde_ms": 20017.839800000274,
+      "multi_query_ms": 0.0,
+      "reranking_ms": 0.0,
+      "graph_ms": 0.0,
+      "llm_ms": 6013.224674999947,
+      "total_ms": 26830.206075000206
+    },
+    "ragas_scores": {
+      "faithfulness": 0.8227,
+      "answer_relevancy": 0.8616,
+      "context_recall": 0.817,
+      "context_precision": 0.7025
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.801,
+      "total_time_s": 26.83,
+      "llm_calls_avg": 2,
+      "cost_score": 28.83,
+      "cost_benefit": 0.0278
+    },
+    "complexity": {
+      "retrieval": "O(d×k)",
+      "extra_llm_calls": 1,
+      "local_compute": "O(1)"
+    }
+  },
+  {
+    "name": "Multi-Query",
+    "config": {
+      "use_hyde": false,
+      "use_multi_query": true,
+      "use_reranking": false,
+      "use_graph": false
+    },
+    "avg_timing": {
+      "hyde_ms": 0.0,
+      "multi_query_ms": 31294.383700000253,
+      "reranking_ms": 0.0,
+      "graph_ms": 0.0,
+      "llm_ms": 37850.40611250042,
+      "total_ms": 69144.90126249848
+    },
+    "ragas_scores": {
+      "faithfulness": 0.663,
+      "answer_relevancy": 0.7991,
+      "context_recall": 0.6537,
+      "context_precision": 0.557
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.6682,
+      "total_time_s": 69.145,
+      "llm_calls_avg": 2,
+      "cost_score": 71.145,
+      "cost_benefit": 0.0094
+    },
+    "complexity": {
+      "retrieval": "O(N×d×k)",
+      "extra_llm_calls": 1,
+      "local_compute": "O(N×k)"
+    }
+  },
+  {
+    "name": "Reranking",
+    "config": {
+      "use_hyde": false,
+      "use_multi_query": false,
+      "use_reranking": true,
+      "use_graph": false
+    },
+    "avg_timing": {
+      "hyde_ms": 0.0,
+      "multi_query_ms": 0.0,
+      "reranking_ms": 144.98306250015958,
+      "graph_ms": 0.0,
+      "llm_ms": 44924.73424999935,
+      "total_ms": 45785.85762500006
+    },
+    "ragas_scores": {
+      "faithfulness": 0.7627,
+      "answer_relevancy": 0.8772,
+      "context_recall": 0.6479,
+      "context_precision": 0.5554
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.7108,
+      "total_time_s": 45.786,
+      "llm_calls_avg": 1,
+      "cost_score": 45.786,
+      "cost_benefit": 0.0155
+    },
+    "complexity": {
+      "retrieval": "O(d×k)",
+      "extra_llm_calls": 0,
+      "local_compute": "O(k×L)"
+    }
+  },
+  {
+    "name": "Knowledge Graph",
+    "config": {
+      "use_hyde": false,
+      "use_multi_query": false,
+      "use_reranking": false,
+      "use_graph": true
+    },
+    "avg_timing": {
+      "hyde_ms": 0.0,
+      "multi_query_ms": 0.0,
+      "reranking_ms": 0.0,
+      "graph_ms": 4.953487500188203,
+      "llm_ms": 8586.935550000362,
+      "total_ms": 9287.86857499972
+    },
+    "ragas_scores": {
+      "faithfulness": 0.6862,
+      "answer_relevancy": 0.7366,
+      "context_recall": 0.6537,
+      "context_precision": 0.557
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.6584,
+      "total_time_s": 9.288,
+      "llm_calls_avg": 1,
+      "cost_score": 9.288,
+      "cost_benefit": 0.0709
+    },
+    "complexity": {
+      "retrieval": "O(d×k)",
+      "extra_llm_calls": 0,
+      "local_compute": "O(V+E)"
+    }
+  },
+  {
+    "name": "HyDE + Reranking",
+    "config": {
+      "use_hyde": true,
+      "use_multi_query": false,
+      "use_reranking": true,
+      "use_graph": false
+    },
+    "avg_timing": {
+      "hyde_ms": 27620.961725000143,
+      "multi_query_ms": 0.0,
+      "reranking_ms": 99.78685000078258,
+      "graph_ms": 0.0,
+      "llm_ms": 12983.695062499919,
+      "total_ms": 41403.50388749994
+    },
+    "ragas_scores": {
+      "faithfulness": 0.8395,
+      "answer_relevancy": 0.8147,
+      "context_recall": 0.7786,
+      "context_precision": 0.6587
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.7729,
+      "total_time_s": 41.404,
+      "llm_calls_avg": 2,
+      "cost_score": 43.404,
+      "cost_benefit": 0.0178
+    },
+    "complexity": {
+      "retrieval": "O(d×k)",
+      "extra_llm_calls": 1,
+      "local_compute": "O(k×L)"
+    }
+  },
+  {
+    "name": "Multi-Query + Reranking",
+    "config": {
+      "use_hyde": false,
+      "use_multi_query": true,
+      "use_reranking": true,
+      "use_graph": false
+    },
+    "avg_timing": {
+      "hyde_ms": 0.0,
+      "multi_query_ms": 11180.988487499235,
+      "reranking_ms": 77.51020000023345,
+      "graph_ms": 0.0,
+      "llm_ms": 11803.588674999446,
+      "total_ms": 23062.18435000028
+    },
+    "ragas_scores": {
+      "faithfulness": 0.8185,
+      "answer_relevancy": 0.846,
+      "context_recall": 0.7641,
+      "context_precision": 0.6432
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.768,
+      "total_time_s": 23.062,
+      "llm_calls_avg": 2,
+      "cost_score": 25.062,
+      "cost_benefit": 0.0306
+    },
+    "complexity": {
+      "retrieval": "O(N×d×k)",
+      "extra_llm_calls": 1,
+      "local_compute": "O(N×k+k×L)"
+    }
+  },
+  {
+    "name": "Todas as técnicas",
+    "config": {
+      "use_hyde": true,
+      "use_multi_query": true,
+      "use_reranking": true,
+      "use_graph": true
+    },
+    "avg_timing": {
+      "hyde_ms": 20734.600024999963,
+      "multi_query_ms": 18784.86201250007,
+      "reranking_ms": 169.33398750097695,
+      "graph_ms": 6.706187499275984,
+      "llm_ms": 24993.707912499758,
+      "total_ms": 64689.316487500946
+    },
+    "ragas_scores": {
+      "faithfulness": 0.8082,
+      "answer_relevancy": 0.8929,
+      "context_recall": 0.775,
+      "context_precision": 0.6539
+    },
+    "cost_benefit_details": {
+      "quality_score": 0.7825,
+      "total_time_s": 64.689,
+      "llm_calls_avg": 3,
+      "cost_score": 68.689,
+      "cost_benefit": 0.0114
+    },
+    "complexity": {
+      "retrieval": "O(N×d×k)",
+      "extra_llm_calls": 2,
+      "local_compute": "O(N×k+k×L+V+E)"
+    }
+  }
+]

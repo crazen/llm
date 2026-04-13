@@ -1,0 +1,34 @@
+# ── Segredos ──────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Dados dos usuários ────────────────────────────────────────────
+user_data/
+docs/
+
+# ── Índices RAG (gerados automaticamente) ─────────────────────────
+*.pkl
+*.faiss
+
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# ── Sistema ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDEs ──────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo

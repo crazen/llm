@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Avaliação RAG — NIM Chat</title>
+<style>
+  body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: #e6edf3; margin: 0; padding: 32px; }
+  h1 { font-size: 28px; background: linear-gradient(90deg,#4f8ef7,#a78bfa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  h2 { font-size: 18px; color: #a78bfa; margin-top: 40px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+  th { background: #161b22; color: #8b949e; padding: 10px 14px; text-align: left; font-weight: 600; letter-spacing: 0.5px; }
+  td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+  tr:hover td { background: #161b22; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #79c0ff; }
+  .note { font-size: 12px; color: #8b949e; margin-top: 8px; font-style: italic; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; }
+</style>
+</head>
+<body>
+<h1>📊 Avaliação Comparativa das Técnicas RAG</h1>
+<p class="note">Gerado automaticamente por eval_rag.py — 8 perguntas de avaliação</p>
+
+<h2>🎯 Qualidade das Respostas (RAGAS)</h2>
+<p class="note">Escala 0–1. Quanto maior, melhor. Faithfulness = fidelidade ao contexto. Answer Relevancy = relevância para a pergunta.</p>
+<table>
+  <tr><th>Técnica</th><th>Faithfulness</th><th>Answer Relevancy</th><th>Context Recall</th><th>Context Precision</th></tr>
+  <tr>
+            <td><b>Baseline (só FAISS)</b></td>
+            <td>0.6909</td>
+            <td>0.7991</td>
+            <td>0.6537</td>
+            <td>0.5570</td>
+        </tr><tr>
+            <td><b>HyDE</b></td>
+            <td>0.8227</td>
+            <td>0.8616</td>
+            <td>0.8170</td>
+            <td>0.7025</td>
+        </tr><tr>
+            <td><b>Multi-Query</b></td>
+            <td>0.6630</td>
+            <td>0.7991</td>
+            <td>0.6537</td>
+            <td>0.5570</td>
+        </tr><tr>
+            <td><b>Reranking</b></td>
+            <td>0.7627</td>
+            <td>0.8772</td>
+            <td>0.6479</td>
+            <td>0.5554</td>
+        </tr><tr>
+            <td><b>Knowledge Graph</b></td>
+            <td>0.6862</td>
+            <td>0.7366</td>
+            <td>0.6537</td>
+            <td>0.5570</td>
+        </tr><tr>
+            <td><b>HyDE + Reranking</b></td>
+            <td>0.8395</td>
+            <td>0.8147</td>
+            <td>0.7786</td>
+            <td>0.6587</td>
+        </tr><tr>
+            <td><b>Multi-Query + Reranking</b></td>
+            <td>0.8185</td>
+            <td>0.8460</td>
+            <td>0.7641</td>
+            <td>0.6432</td>
+        </tr><tr>
+            <td><b>Todas as técnicas</b></td>
+            <td>0.8082</td>
+            <td>0.8929</td>
+            <td>0.7750</td>
+            <td>0.6539</td>
+        </tr>
+</table>
+
+<h2>⏱️ Desempenho e Velocidade (média por pergunta)</h2>
+<p class="note">Tempo de cada etapa em milissegundos. LLM inclui latência da API NVIDIA.</p>
+<table>
+  <tr><th>Técnica</th><th>HyDE</th><th>Multi-Query</th><th>Reranking</th><th>Graph</th><th>LLM</th><th>Total</th></tr>
+  <tr>
+            <td><b>Baseline (só FAISS)</b></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>8365ms</td>
+            <td><b>9140ms</b></td>
+        </tr><tr>
+            <td><b>HyDE</b></td>
+            <td>20018ms</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>6013ms</td>
+            <td><b>26830ms</b></td>
+        </tr><tr>
+            <td><b>Multi-Query</b></td>
+            <td>—</td>
+            <td>31294ms</td>
+            <td>—</td>
+            <td>—</td>
+            <td>37850ms</td>
+            <td><b>69145ms</b></td>
+        </tr><tr>
+            <td><b>Reranking</b></td>
+            <td>—</td>
+            <td>—</td>
+            <td>145ms</td>
+            <td>—</td>
+            <td>44925ms</td>
+            <td><b>45786ms</b></td>
+        </tr><tr>
+            <td><b>Knowledge Graph</b></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>5ms</td>
+            <td>8587ms</td>
+            <td><b>9288ms</b></td>
+        </tr><tr>
+            <td><b>HyDE + Reranking</b></td>
+            <td>27621ms</td>
+            <td>—</td>
+            <td>100ms</td>
+            <td>—</td>
+            <td>12984ms</td>
+            <td><b>41404ms</b></td>
+        </tr><tr>
+            <td><b>Multi-Query + Reranking</b></td>
+            <td>—</td>
+            <td>11181ms</td>
+            <td>78ms</td>
+            <td>—</td>
+            <td>11804ms</td>
+            <td><b>23062ms</b></td>
+        </tr><tr>
+            <td><b>Todas as técnicas</b></td>
+            <td>20735ms</td>
+            <td>18785ms</td>
+            <td>169ms</td>
+            <td>7ms</td>
+            <td>24994ms</td>
+            <td><b>64689ms</b></td>
+        </tr>
+</table>
+
+<h2>🧮 Complexidade Assintótica</h2>
+<p class="note">d=dimensão embedding (1024), k=candidatos (8), N=variações multi-query (4), L=tamanho chunk (400 tokens), V=vértices do grafo, E=arestas do grafo</p>
+<table>
+  <tr><th>Técnica</th><th>Retrieval</th><th>Computação local</th><th>Chamadas LLM extras</th></tr>
+  <tr>
+            <td><b>Baseline (só FAISS)</b></td>
+            <td><code>O(d×k)</code></td>
+            <td><code>O(1)</code></td>
+            <td>0</td>
+        </tr><tr>
+            <td><b>HyDE</b></td>
+            <td><code>O(d×k)</code></td>
+            <td><code>O(1)</code></td>
+            <td>1</td>
+        </tr><tr>
+            <td><b>Multi-Query</b></td>
+            <td><code>O(N×d×k)</code></td>
+            <td><code>O(N×k)</code></td>
+            <td>1</td>
+        </tr><tr>
+            <td><b>Reranking</b></td>
+            <td><code>O(d×k)</code></td>
+            <td><code>O(k×L)</code></td>
+            <td>0</td>
+        </tr><tr>
+            <td><b>Knowledge Graph</b></td>
+            <td><code>O(d×k)</code></td>
+            <td><code>O(V+E)</code></td>
+            <td>0</td>
+        </tr><tr>
+            <td><b>HyDE + Reranking</b></td>
+            <td><code>O(d×k)</code></td>
+            <td><code>O(k×L)</code></td>
+            <td>1</td>
+        </tr><tr>
+            <td><b>Multi-Query + Reranking</b></td>
+            <td><code>O(N×d×k)</code></td>
+            <td><code>O(N×k+k×L)</code></td>
+            <td>1</td>
+        </tr><tr>
+            <td><b>Todas as técnicas</b></td>
+            <td><code>O(N×d×k)</code></td>
+            <td><code>O(N×k+k×L+V+E)</code></td>
+            <td>2</td>
+        </tr>
+</table>
+
+<h2>⚖️ Custo-Benefício (quality_score / cost_score)</h2>
+<p class="note">Quanto MAIOR a barra, melhor a relação qualidade/custo. Cost score = tempo_total_s + (chamadas_llm_extra × 2s)</p>
+<table>
+  <tr><th>Técnica</th><th>Qualidade</th><th>Tempo total</th><th>Chamadas LLM</th><th>Cost score</th><th>Cost-Benefit ↑</th></tr>
+  <tr>
+            <td><b>Baseline (só FAISS)</b></td>
+            <td>0.6752</td>
+            <td>9.14s</td>
+            <td>1</td>
+            <td>9.14</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:22px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0739</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>HyDE</b></td>
+            <td>0.8010</td>
+            <td>26.83s</td>
+            <td>2</td>
+            <td>28.83</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:8px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0278</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>Multi-Query</b></td>
+            <td>0.6682</td>
+            <td>69.145s</td>
+            <td>2</td>
+            <td>71.145</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:2px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0094</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>Reranking</b></td>
+            <td>0.7108</td>
+            <td>45.786s</td>
+            <td>1</td>
+            <td>45.786</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:4px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0155</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>Knowledge Graph</b></td>
+            <td>0.6584</td>
+            <td>9.288s</td>
+            <td>1</td>
+            <td>9.288</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:21px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0709</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>HyDE + Reranking</b></td>
+            <td>0.7729</td>
+            <td>41.404s</td>
+            <td>2</td>
+            <td>43.404</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:5px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0178</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>Multi-Query + Reranking</b></td>
+            <td>0.7680</td>
+            <td>23.062s</td>
+            <td>2</td>
+            <td>25.062</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:9px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0306</b>
+                </div>
+            </td>
+        </tr><tr>
+            <td><b>Todas as técnicas</b></td>
+            <td>0.7825</td>
+            <td>64.689s</td>
+            <td>3</td>
+            <td>68.689</td>
+            <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:3px;height:16px;background:linear-gradient(90deg,#4f8ef7,#a78bfa);border-radius:4px"></div>
+                    <b>0.0114</b>
+                </div>
+            </td>
+        </tr>
+</table>
+
+</body>
+</html>
